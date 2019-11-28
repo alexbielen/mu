@@ -1,7 +1,7 @@
 module Lib
-    ( FitMode
-    , fit
+    ( fit
     , hello
+    , FitMode(..)
     )
 where
 
@@ -18,7 +18,7 @@ fit n min max mode = if inRange
     else case mode of
         Wrap    -> n
         Reflect -> n
-        Range   -> n
+        Range   -> if n < min then min else max
     where inRange = min <= n && n <= max
 
 hello :: IO ()
