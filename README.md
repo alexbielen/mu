@@ -6,13 +6,10 @@ Mu is an algorithmic music composition toolbox written in Haskell. Mu is a work-
 
 ### Goals
 
-Mu aims to be a one-stop interface for algorithmic music composition. This includes the following goals:
-
-- Provide a type-safe, expressive, and easy-to-learn algorithmic music composition library.
-- Support realtime and faster-than-realtime in equal measure.
-- Integrate with various input and output musical representations including MIDI, CSound, MusicXML, MICA (Music Information Concept Archive), and others.
-- Provide previously unexplored types of parametric transformations including easing/tweening capabilities, collective behavior/swarming algorithms, and others.
+- Integrate with existing systems for sound synthesis, sheet music engraving, etc. The algorithmic music composition software ecosystem is strong!
+- Support realtime and non-realtime in equal measure.
+- Explore new types of transformation and integrate research from collective behavior/swarming.
 
 ### Why Haskell?
 
-I believe that Haskell is uniquely suited to algorithmic music composition. Haskell's expressive syntax allows for quick realtime manipulation while its elegant type system affords confidence in performance and reliability. Haskell's algebraic and logical foundations afford easy-to-understand design of algorithmic heavy applications.
+Haskell has some strengths that are particularly well-suited to algorithmic music composition. Haskell's expressive syntax allows for quick realtime manipulation while its elegant type system affords confidence in performance and reliability. Haskell's algebraic and logical foundations afford easy-to-understand design of algorithmic heavy applications.
