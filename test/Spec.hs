@@ -1,8 +1,10 @@
 import           Test.Hspec
 import qualified Lib                            ( FitMode(..)
+                                                , UniformMode(..)
                                                 , fit
                                                 , fitF
                                                 , deltas
+                                                , uniformQuantize
                                                 )
 
 
@@ -11,6 +13,7 @@ main = do
     testFit
     testFitF
     testDeltas
+    testUniformQuantize
 
 testFit :: IO ()
 testFit = hspec $ describe "fit" $ do
@@ -64,6 +67,13 @@ testDeltas = hspec $ describe "deltas" $ do
         $          length (Lib.deltas [3, 2, 1])
         `shouldBe` length [3, 2, 1]
         -          1
+
+
+testUniformQuantize :: IO ()
+testUniformQuantize = hspec $ describe "uniformQuantize" $ do
+    it "quantizes n to the closest multiple of step"
+        $          Lib.uniformQuantize Lib.MidTread 2 13.0
+        `shouldBe` 14.0
 
 
 

@@ -3,7 +3,9 @@ module Lib
     , fitF
     , deltas
     , hello
+    , uniformQuantize
     , FitMode(..)
+    , UniformMode(..)
     )
 where
 
@@ -35,7 +37,7 @@ fit mode min max n = if inRange
 
 
 {-|
-fitF maps the fit function over Functors of Integrals. 
+fitF maps the fit function over functors. 
 -}
 fitF :: (Functor f, Integral a) => FitMode -> a -> a -> f a -> f a
 fitF mode min max = fmap (fit mode min max)
@@ -55,6 +57,42 @@ deltas :: (Integral a) => [a] -> [a]
 deltas []         = []
 deltas [  x     ] = [x]
 deltas l@(_ : xs) = zipWith (-) l xs
+
+
+{-|
+QuantizeMode 
+
+MidTread 
+MidRiser
+-}
+data UniformMode
+    = MidTread
+    | MidRiser
+    deriving (Show)
+
+{-|
+uniformQuantize transforms a Real number to the closest multiple of step. There are two modes: 
+
+MidTread uses the following algorithm: 
+    step * floor((n / step) + 0.5)
+
+MidRiser uses the following algorithm: 
+    step * (floor(n / step)) + 0.5
+-}
+uniformQuantize :: (RealFrac a) => UniformMode -> a -> a -> a
+uniformQuantize mode step n = case mode of
+    MidTread -> step * midTreadClassificationStage
+    MidRiser -> step * (midRiserClassificationStage + 0.5)
+  where
+    midTreadClassificationStage = conv ((n / step) + 0.5)
+    midRiserClassificationStage = conv (n / step)
+    conv                        = fromIntegral . floor
+
+{-
+uniformQuantizeF maps the uniformQuantize function over functors. 
+-}
+uniformQuantizeF :: (Functor f, RealFrac a) => UniformMode -> a -> f a -> f a
+uniformQuantizeF mode step = fmap (uniformQuantize mode step)
 
 
 
