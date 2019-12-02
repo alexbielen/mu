@@ -1,5 +1,6 @@
 module Lib
     ( fit
+    , fitF
     , hello
     , FitMode(..)
     )
@@ -7,31 +8,36 @@ where
 
 data FitMode
     = Wrap
-    | Reflect
-    | Limit
+    | Clamp
     deriving (Show)
 
-{- 
+{-|
 fit transforms a value to "fit" within a range according to a mode. 
 
-Wrap uses modular (aka "clock") arithmetic to "wrap" n into the range. 
+Wrap mode uses modular (aka "clock") arithmetic to "wrap" n into the range.
+This is expressed in the following equation: 
+n' = n - floor((n - min) / (max - min )) *  (max - min)
 
-Limit takes any out-of-range values and replaces with the nearest bound. 
+Clamp mode takes any out-of-range values and replaces with the nearest bound. 
 
 -}
-fit :: FitMode -> Int -> Int -> Int -> Int
+fit :: Integral a => FitMode -> a -> a -> a -> a
 fit mode min max n = if inRange
     then n
     else case mode of
-        Wrap ->
-            (if max == nearBound then min else max) + rem (n - nearBound) range
-        Reflect -> n
-        Limit   -> nearBound
+        Wrap  -> n - ((n - min) `div` range) * range
+        Clamp -> nearBound
   where
     inRange   = min <= n && n <= max
     range     = max - min
     nearBound = if n > max then max else min -- the bound that is closest to n
 
+
+{-|
+fitF maps the fit function over Functors of Integrals. 
+-}
+fitF :: (Functor f, Integral a) => FitMode -> a -> a -> f a -> f a
+fitF mode min max = fmap (fit mode min max)
 
 hello :: IO ()
 hello = putStrLn "Welcome to Mu, an algorithmic composition toolbox."
