@@ -1,6 +1,7 @@
 module Lib
     ( fit
     , fitF
+    , deltas
     , hello
     , FitMode(..)
     )
@@ -38,6 +39,24 @@ fitF maps the fit function over Functors of Integrals.
 -}
 fitF :: (Functor f, Integral a) => FitMode -> a -> a -> f a -> f a
 fitF mode min max = fmap (fit mode min max)
+
+{-|
+deltas returns list of differences between adjacent numbers in the input list. As such, the resulting list 
+will be one element shorter than the input list. 
+
+Example: 
+
+In:  [3, 2, 1] 
+Out: [1, 1]
+
+NOTE: This can be made generic for container types other than list but need to look into that.
+-}
+deltas :: (Integral a) => [a] -> [a]
+deltas []         = []
+deltas [  x     ] = [x]
+deltas l@(_ : xs) = zipWith (-) l xs
+
+
 
 hello :: IO ()
 hello = putStrLn "Welcome to Mu, an algorithmic composition toolbox."
