@@ -1,8 +1,7 @@
-module Lib
+module Numbers
     ( fit
     , fitF
     , deltas
-    , hello
     , uniformQuantize
     , FitMode(..)
     , UniformMode(..)
@@ -93,8 +92,3 @@ uniformQuantizeF maps the uniformQuantize function over functors.
 -}
 uniformQuantizeF :: (Functor f, RealFrac a) => UniformMode -> a -> f a -> f a
 uniformQuantizeF mode step = fmap (uniformQuantize mode step)
-
-
-
-hello :: IO ()
-hello = putStrLn "Welcome to Mu, an algorithmic composition toolbox."

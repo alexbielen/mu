@@ -1,5 +1,6 @@
 import           Test.Hspec
-import qualified Lib                            ( FitMode(..)
+import qualified Numbers                       as N
+                                                ( FitMode(..)
                                                 , UniformMode(..)
                                                 , fit
                                                 , fitF
@@ -17,8 +18,8 @@ main = do
 
 testFit :: IO ()
 testFit = hspec $ describe "fit" $ do
-    let wrapped = Lib.fit Lib.Wrap
-    let clamped = Lib.fit Lib.Clamp
+    let wrapped = N.fit N.Wrap
+    let clamped = N.fit N.Clamp
     -- Wrap Mode
     it "returns n when n is in between min and max and mode is Wrap"
         $          wrapped 1 3 2
@@ -49,22 +50,22 @@ testFitF :: IO ()
 testFitF = hspec $ describe "fitF" $ do
     -- Wrap Mode 
     it "returns n in a list when n is between min and max and mode is Wrap"
-        $          Lib.fitF Lib.Wrap 1 3 [2]
+        $          N.fitF N.Wrap 1 3 [2]
         `shouldBe` [2]
 
     it "returns n in a Just when n is between min and max and mode is Wrap"
-        $          Lib.fitF Lib.Wrap 1 3 (Just 2)
+        $          N.fitF N.Wrap 1 3 (Just 2)
         `shouldBe` Just 2
 
 
 testDeltas :: IO ()
 testDeltas = hspec $ describe "deltas" $ do
     it "returns list of differences between adjacent numbers in the input list"
-        $          Lib.deltas [5, 1, 4, 2, 3]
+        $          N.deltas [5, 1, 4, 2, 3]
         `shouldBe` [4, -3, 2, -1]
 
     it "returns a list one element shorter than the input list"
-        $          length (Lib.deltas [3, 2, 1])
+        $          length (N.deltas [3, 2, 1])
         `shouldBe` length [3, 2, 1]
         -          1
 
@@ -72,7 +73,7 @@ testDeltas = hspec $ describe "deltas" $ do
 testUniformQuantize :: IO ()
 testUniformQuantize = hspec $ describe "uniformQuantize" $ do
     it "quantizes n to the closest multiple of step"
-        $          Lib.uniformQuantize Lib.MidTread 2 13.0
+        $          N.uniformQuantize N.MidTread 2 13.0
         `shouldBe` 14.0
 
 
