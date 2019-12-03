@@ -1,6 +1,6 @@
 module Main where
 
-import           Lib
+import           CommandLine
 
 main :: IO ()
 main = hello
