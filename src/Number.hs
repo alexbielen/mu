@@ -1,8 +1,9 @@
-module Numbers
+module Number
     ( fit
     , fitF
     , deltas
     , uniformQuantize
+    , uniformQuantizeF
     , FitMode(..)
     , UniformMode(..)) where
 
