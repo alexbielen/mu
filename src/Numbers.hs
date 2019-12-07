@@ -4,14 +4,11 @@ module Numbers
     , deltas
     , uniformQuantize
     , FitMode(..)
-    , UniformMode(..)
-    )
-where
+    , UniformMode(..)) where
 
-data FitMode
-    = Wrap
-    | Clamp
-    deriving (Show)
+data FitMode = Wrap
+             | Clamp
+  deriving (Show)
 
 {-|
 fit transforms a value to "fit" within a range according to a mode. 
@@ -25,15 +22,18 @@ Clamp mode takes any out-of-range values and replaces with the nearest bound.
 -}
 fit :: Integral a => FitMode -> a -> a -> a -> a
 fit mode min max n = if inRange
-    then n
-    else case mode of
-        Wrap  -> n - ((n - min) `div` range) * range
-        Clamp -> nearBound
+                     then n
+                     else case mode of
+                       Wrap  -> n - ((n - min) `div` range) * range
+                       Clamp -> nearBound
   where
-    inRange   = min <= n && n <= max
-    range     = max - min
-    nearBound = if n > max then max else min -- the bound that is closest to n
+    inRange = min <= n && n <= max
 
+    range = max - min
+
+    nearBound = if n > max
+                then max
+                else min -- the bound that is closest to n
 
 {-|
 fitF maps the fit function over functors. 
@@ -53,10 +53,9 @@ Out: [1, 1]
 NOTE: This can be made generic for container types other than list but need to look into that.
 -}
 deltas :: (Integral a) => [a] -> [a]
-deltas []         = []
-deltas [  x     ] = [x]
-deltas l@(_ : xs) = zipWith (-) l xs
-
+deltas [] = []
+deltas [x] = [x]
+deltas l @ (_:xs) = zipWith (-) l xs
 
 {-|
 QuantizeMode 
@@ -64,10 +63,9 @@ QuantizeMode
 MidTread 
 MidRiser
 -}
-data UniformMode
-    = MidTread
-    | MidRiser
-    deriving (Show)
+data UniformMode = MidTread
+                 | MidRiser
+  deriving (Show)
 
 {-|
 uniformQuantize transforms a Real number to the closest multiple of step. There are two modes: 
@@ -80,12 +78,14 @@ MidRiser uses the following algorithm:
 -}
 uniformQuantize :: (RealFrac a) => UniformMode -> a -> a -> a
 uniformQuantize mode step n = case mode of
-    MidTread -> step * midTreadClassificationStage
-    MidRiser -> step * (midRiserClassificationStage + 0.5)
+  MidTread -> step * midTreadClassificationStage
+  MidRiser -> step * (midRiserClassificationStage + 0.5)
   where
     midTreadClassificationStage = conv ((n / step) + 0.5)
+
     midRiserClassificationStage = conv (n / step)
-    conv                        = fromIntegral . floor
+
+    conv = fromIntegral . floor
 
 {-
 uniformQuantizeF maps the uniformQuantize function over functors. 
