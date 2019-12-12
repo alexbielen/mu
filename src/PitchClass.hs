@@ -1,4 +1,8 @@
-module PitchClass (PitchClass(..), Interval(..), ascendingInterval) where
+module PitchClass
+    ( PitchClass(..)
+    , Interval(..)
+    , IntervalMode(..)
+    , orderedInterval) where
 
 {-| 
 Interval: The Interval data type describes the available 
@@ -56,13 +60,20 @@ data PitchClass =
   | B
   deriving (Show, Eq, Enum)
 
-ascendingInterval :: PitchClass -> PitchClass -> Interval
-ascendingInterval pc pc2 = if distance < 0
-                           then toEnum (12 - distance)
-                           else toEnum distance
+data IntervalMode = Asc
+                  | Desc
+
+orderedInterval :: IntervalMode -> PitchClass -> PitchClass -> Interval
+orderedInterval im pc pc2 = if distance `comp` 0
+                            then toEnum (12 - distance)
+                            else toEnum distance
   where
     distance = (n2 - n1) `mod` 12
 
     n1 = fromEnum pc
 
     n2 = fromEnum pc2
+
+    comp = case im of
+      Asc  -> (<)
+      Desc -> (>)
