@@ -22,19 +22,20 @@ Clamp mode takes any out-of-range values and replaces with the nearest bound.
 
 -}
 fit :: Integral a => FitMode -> a -> a -> a -> a
-fit mode min max n = if inRange
-                     then n
-                     else case mode of
-                       Wrap  -> n - ((n - min) `div` range) * range
-                       Clamp -> nearBound
+fit mode lo hi n = if inRange
+                   then n
+                   else case mode of
+                     Wrap  -> n - ((n - lo) `div` range) * range
+                     Clamp -> nearBound
   where
-    inRange = min <= n && n <= max
+    inRange = lo <= n && n <= hi
 
-    range = max - min
+    range = hi - lo
 
-    nearBound = if n > max
-                then max
-                else min -- the bound that is closest to n
+    -- the bound that is closest to n
+    nearBound = if n > hi
+                then hi
+                else lo
 
 {-|
 fitF maps the fit function over functors. 
