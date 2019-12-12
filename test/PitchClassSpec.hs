@@ -16,3 +16,5 @@ testInterval = describe "interval"
       $ PC.ascendingInterval PC.B PC.C `shouldBe` PC.Min2
     it "returns a unison for D D"
       $ PC.ascendingInterval PC.D PC.D `shouldBe` PC.Unison
+    it "returns a Maj 7 for C B"
+      $ PC.ascendingInterval PC.C PC.B `shouldBe` PC.Maj7 
