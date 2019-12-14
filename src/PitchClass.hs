@@ -43,7 +43,7 @@ data Interval =
   | Maj6
   | Min7
   | Maj7
-  deriving (Show, Eq, Ord, Enum)
+  deriving (Show, Eq, Ord, Enum, Bounded)
 
 data PitchClass =
     C
