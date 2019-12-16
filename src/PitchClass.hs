@@ -1,6 +1,6 @@
-module PitchClass (orderedInterval, invert, invertF) where
+module PitchClass (orderedInterval, unorderedInterval, invert, transpose) where
 
-{-
+{-|
 orderedInterval returns the number of ascending semi-tones 
 between two pitch classes (0-11). 
 
@@ -13,7 +13,14 @@ orderedInterval n1 n2 = if n1 <= n2
   where
     distance = abs (n1 - n2) `mod` 12
 
-{-
+unorderedInterval :: Integral a => a -> a -> a
+unorderedInterval n1 n2 = min a b
+  where
+    a = (n1 - n2) `mod` 12
+
+    b = (n2 - n1) `mod` 12
+
+{-|
 invert returns the pitch class inverted around C (0). 
 
 For example, E (4) inverts to Ab (8).  
@@ -21,8 +28,8 @@ For example, E (4) inverts to Ab (8).
 invert :: Integral a => a -> a
 invert = (-) 12
 
-{-
-invertF applies invert to any functor.
+{-|
+transpose
 -}
-invertF :: (Functor f, Integral a) => f a -> f a
-invertF = fmap invert
+transpose :: Integral a => a -> a -> a
+transpose n by = (n + by) `mod` 12
