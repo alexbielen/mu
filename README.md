@@ -1,5 +1,7 @@
 # Mu
 
+[![Actions Status](https://github.com/alexbielen/mu/workflows/Haskell%20CI/badge.svg)](https://github.com/alexbielen/mu/actions)
+
 ![Mu Logo](images/mu_chord.png)
 
 Mu is an algorithmic music composition toolbox written in Haskell. Mu is a work-in-progress and will be for quite some time. APIs should not be considered stable!
