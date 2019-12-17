@@ -29,7 +29,14 @@ invert :: Integral a => a -> a
 invert = (-) 12
 
 {-|
-transpose
+transpose pitch n by some interval. 
 -}
 transpose :: Integral a => a -> a -> a
 transpose n by = (n + by) `mod` 12
+
+{-|
+normalOrder returns the most intervallically compressed 
+representation of a set of pitch classes. 
+-}
+normalOrder :: Integral a => [a] -> [a]
+normalOrder l = l
