@@ -1,10 +1,17 @@
-module PitchClass (orderedInterval, unorderedInterval, invert, transpose) where
+module PitchClass
+    ( orderedInterval
+    , unorderedInterval
+    , invert
+    , transpose
+    , rotate) where
+
+import           Data.List (group, sort)
 
 {-|
 orderedInterval returns the number of ascending semi-tones 
 between two pitch classes (0-11). 
 
-For example, C to E is 4 semitones, but E to C is 8 semitones (or the "inversion" or 4 semitones.)
+For example, C to E is 4 semitones, but E to C is 8 semitones (or the "inversion" of 4 semitones.)
 -}
 orderedInterval :: Integral a => a -> a -> a
 orderedInterval n1 n2 = if n1 <= n2
@@ -35,8 +42,7 @@ transpose :: Integral a => a -> a -> a
 transpose n by = (n + by) `mod` 12
 
 {-|
-normalOrder returns the most intervallically compressed 
-representation of a set of pitch classes. 
+rotate a list by n.
 -}
-normalOrder :: Integral a => [a] -> [a]
-normalOrder l = l
+rotate :: Int -> [a] -> [a]
+rotate = drop <> take

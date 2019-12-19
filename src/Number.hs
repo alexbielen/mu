@@ -56,7 +56,7 @@ NOTE: This can be made generic for container types other than list but need to l
 -}
 deltas :: (Integral a) => [a] -> [a]
 deltas [] = []
-deltas [x] = [x]
+deltas [_] = []
 deltas l @ (_:xs) = zipWith (-) l xs
 
 {-|
