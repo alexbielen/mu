@@ -4,14 +4,12 @@
 
 ![Mu Logo](images/mu_chord.png)
 
-Mu is an algorithmic music composition toolbox written in Haskell. Mu is a work-in-progress and will be for quite some time. APIs should not be considered stable!
+Mu is a frontend for text-based sheet music engraving written in Haskell.
 
 ### Goals
 
-- Integrate with existing systems for sound synthesis, sheet music engraving, etc. The algorithmic music composition software ecosystem is strong!
-- Support realtime and non-realtime in equal measure.
-- Explore new types of transformation and integrate research from collective behavior/swarming.
+Integrate with existing sheet music engraving systems (LilyPond, etc.) using an elegant and expressive type-safe DSL.
 
 ### Why Haskell?
 
-Haskell has some strengths that are particularly well-suited to algorithmic music composition. Haskell's expressive syntax allows for quick realtime manipulation while its elegant type system affords confidence in performance and reliability. Haskell's algebraic and logical foundations afford easy-to-understand design of algorithmic heavy applications.
+Haskell has some strengths that are particularly well-suited to the representation and manipulation of music. For example, Haskell's algebraic data types allow programmers to safely express complex hierarchical relationships, which are commonly found in music representation.
