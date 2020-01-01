@@ -6,6 +6,8 @@
 
 Mu is a frontend for text-based sheet music engraving written in Haskell.
 
+Mu is currently under development and is not suitable for use yet. 
+
 ### Goals
 
 Integrate with existing sheet music engraving systems (LilyPond, etc.) using an elegant and expressive type-safe DSL.
